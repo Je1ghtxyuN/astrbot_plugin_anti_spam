@@ -1,6 +1,6 @@
 <div align="center">
 
-![counter](https://count.getloli.com/@astrbot_plugin_anti_spam?name=astrbot_plugin_anti_spam&theme=asoul&padding=7&date=%Y-%m-%d)
+![counter](https://count.getloli.com/@astrbot_plugin_anti_spam?name=astrbot_plugin_anti_spam&theme=gelbooru&padding=7&date=%Y-%m-%d)
 
 # Anti-Spam 反刷屏
 
