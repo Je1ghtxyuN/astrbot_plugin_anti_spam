@@ -1,8 +1,8 @@
 <div align="center">
 
-# Anti-Spam 反垃圾/反刷屏
+# Anti-Spam 反刷屏
 
-**AstrBot 插件** · 检测并拦截重复消息和刷屏行为，保护机器人不被滥用
+**AstrBot 插件** · 检测并拦截重复消息和刷屏行为，保护你的token
 
 [![License](https://img.shields.io/github/license/Je1ghtxyuN/astrbot_plugin_anti_spam?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-v1.0.0-blue?style=flat-square)](https://github.com/Je1ghtxyuN/astrbot_plugin_anti_spam/releases)
@@ -38,13 +38,13 @@
           ▼
 ┌─────────────────────┐
 │   刷屏检测          │ ← 窗口内消息数 ≥ 阈值？→ 触发冷却
-│   (所有消息类型)     │
+│   (所有消息类型)    │
 └─────────┬───────────┘
           │ 未触发
           ▼
 ┌─────────────────────┐
 │   重复消息检测      │ ← 窗口内相同文本 ≥ 阈值？→ 触发冷却
-│   (仅文本消息)       │
+│   (仅文本消息)      │
 └─────────┬───────────┘
           │ 未触发
           ▼
@@ -96,7 +96,7 @@ docker restart astrbot
 
 ### 配置示例
 
-**严格模式**（群聊防骚扰）：
+**严格模式**：
 ```json
 {
   "duplicate_threshold": 2,
@@ -107,7 +107,7 @@ docker restart astrbot
 }
 ```
 
-**宽松模式**（防止误伤）：
+**宽松模式**：
 ```json
 {
   "duplicate_threshold": 5,
@@ -150,7 +150,7 @@ docker restart astrbot
 <details>
 <summary>Q: 重启 AstrBot 后追踪数据会丢失吗？</summary>
 
-是的。追踪数据存储在内存中，重启后会重置。这是设计如此——防止重启后立即触发旧的冷却状态。
+是的。追踪数据存储在内存中，重启后会重置。防止重启后立即触发旧的冷却状态。
 </details>
 
 <details>
@@ -178,11 +178,3 @@ cd astrbot_plugin_anti_spam
 ## 许可证
 
 [MIT License](LICENSE)
-
----
-
-<div align="center">
-
-如果这个插件帮到了你，给个 Star 吧
-
-</div>
