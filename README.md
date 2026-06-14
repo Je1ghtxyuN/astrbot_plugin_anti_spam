@@ -165,4 +165,4 @@ cd astrbot_plugin_anti_spam
 
 ## 许可证
 
-[MIT License](LICENSE)
+[AGPL-3.0 License](LICENSE)
