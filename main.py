@@ -98,6 +98,9 @@ class AntiSpamPlugin(Star):
             f"[AntiSpam] {reason} 触发 | 用户: {user_id} | 冷却: {self.cooldown_seconds}s"
         )
 
+        # 私聊发送警告，群聊静默丢弃
+        if event.is_private_chat():
+            event.set_result(event.plain_result("检测到刷屏行为，你的消息将被暂时忽略。"))
         event.stop_event()
 
     def _cleanup_expired(self, now: float):
