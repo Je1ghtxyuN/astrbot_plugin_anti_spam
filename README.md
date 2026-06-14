@@ -1,5 +1,7 @@
 <div align="center">
 
+![counter](https://count.getloli.com/@astrbot_plugin_anti_spam?name=astrbot_plugin_anti_spam&theme=asoul&padding=7&date=%Y-%m-%d)
+
 # Anti-Spam 反刷屏
 
 **AstrBot 插件** · 检测并拦截重复消息和刷屏行为，保护你的token
