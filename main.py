@@ -7,7 +7,7 @@ from astrbot.api.star import Context, Star
 
 
 class AntiSpamPlugin(Star):
-    """反垃圾/反刷屏插件"""
+    """反刷屏插件"""
 
     def __init__(self, context: Context):
         super().__init__(context)
@@ -38,7 +38,7 @@ class AntiSpamPlugin(Star):
 
     @filter.event_message_type(filter.EventMessageType.ALL, priority=100)
     async def anti_spam_handler(self, event: AstrMessageEvent):
-        """反垃圾/反刷屏主处理器：检测重复消息和刷屏行为，触发冷却时阻断事件传播以避免 token 消耗。"""
+        """反刷屏主处理器：检测重复消息和刷屏行为，触发冷却时阻断事件传播以避免 token 消耗。"""
         if not self.enabled:
             return
 
