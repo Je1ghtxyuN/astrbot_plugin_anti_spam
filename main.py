@@ -41,6 +41,7 @@ class AntiSpamPlugin(Star):
 
     @filter.event_message_type(filter.EventMessageType.ALL, priority=100)
     async def anti_spam_handler(self, event: AstrMessageEvent):
+        """反垃圾/反刷屏主处理器：检测重复消息和刷屏行为，触发冷却时阻断事件传播以避免 token 消耗。"""
         if not self.enabled:
             return
 
@@ -74,17 +75,18 @@ class AntiSpamPlugin(Star):
             self._trigger_cooldown(user_id, now, event, reason="flood")
             return
 
-        # Duplicate detection
+        # Duplicate detection (text messages only — images/stickers have empty get_message_str())
         msg_text = event.get_message_str()
-        dup_deque = self._duplicate_tracker[user_id]
-        dup_deque.append((now, msg_text))
-        while dup_deque and now - dup_deque[0][0] > self.duplicate_window:
-            dup_deque.popleft()
+        if msg_text:
+            dup_deque = self._duplicate_tracker[user_id]
+            dup_deque.append((now, msg_text))
+            while dup_deque and now - dup_deque[0][0] > self.duplicate_window:
+                dup_deque.popleft()
 
-        dup_count = sum(1 for _, text in dup_deque if text == msg_text)
-        if dup_count >= self.duplicate_threshold:
-            self._trigger_cooldown(user_id, now, event, reason="duplicate")
-            return
+            dup_count = sum(1 for _, text in dup_deque if text == msg_text)
+            if dup_count >= self.duplicate_threshold:
+                self._trigger_cooldown(user_id, now, event, reason="duplicate")
+                return
 
         # No spam — let event continue to next handler / LLM
 
@@ -119,6 +121,11 @@ class AntiSpamPlugin(Star):
             self._duplicate_tracker.pop(uid, None)
 
         if expired or stale:
-            logger.debug(
-                f"[AntiSpam] 清理: {len(expired)} 冷却, {len(stale)} 过期追踪"
-            )
+            logger.debug(f"[AntiSpam] 清理: {len(expired)} 冷却, {len(stale)} 过期追踪")
+
+    async def terminate(self):
+        """插件卸载/停用时清理内存状态。"""
+        self._duplicate_tracker.clear()
+        self._flood_tracker.clear()
+        self._cooldowns.clear()
+        logger.info("[AntiSpam] 已卸载，内存状态已清理")
