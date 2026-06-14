@@ -6,7 +6,7 @@
 
 **AstrBot 插件** · 检测并拦截重复消息和刷屏行为，保护你的token
 
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-v1.0.0-blue?style=flat-square)](https://github.com/Je1ghtxyuN/astrbot_plugin_anti_spam/releases)
 [![AstrBot](https://img.shields.io/badge/AstrBot-%3E%3D4.0.0-orange?style=flat-square)](https://github.com/Soulter/AstrBot)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue?style=flat-square)](https://www.python.org/)
