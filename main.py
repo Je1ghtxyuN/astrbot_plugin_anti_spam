@@ -19,9 +19,6 @@ class AntiSpamPlugin(Star):
         self.flood_threshold = config.get("flood_threshold", 5)
         self.flood_window = config.get("flood_window_seconds", 10)
         self.cooldown_seconds = config.get("cooldown_seconds", 30)
-        self.warning_message = config.get(
-            "warning_message", "检测到刷屏行为，你的消息将被暂时忽略。"
-        )
 
         # Per-user tracking state (in-memory, resets on restart)
         self._duplicate_tracker: dict[str, deque] = defaultdict(deque)
@@ -101,8 +98,6 @@ class AntiSpamPlugin(Star):
             f"[AntiSpam] {reason} 触发 | 用户: {user_id} | 冷却: {self.cooldown_seconds}s"
         )
 
-        if self.warning_message:
-            event.set_result(event.plain_result(self.warning_message))
         event.stop_event()
 
     def _cleanup_expired(self, now: float):

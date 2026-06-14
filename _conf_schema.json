@@ -33,10 +33,5 @@
         "type": "int",
         "default": 30,
         "hint": "最小值 10"
-    },
-    "warning_message": {
-        "description": "触发刷屏检测时发送的警告消息，留空则不发送",
-        "type": "string",
-        "default": "检测到刷屏行为，你的消息将被暂时忽略。"
     }
 }
