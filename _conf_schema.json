@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "是否启用反垃圾/反刷屏功能"
+    },
+    "duplicate_threshold": {
+      "type": "integer",
+      "default": 3,
+      "minimum": 2,
+      "description": "重复消息检测阈值：在时间窗口内发送相同消息达到此次数触发冷却"
+    },
+    "duplicate_window_seconds": {
+      "type": "integer",
+      "default": 10,
+      "minimum": 5,
+      "description": "重复消息检测时间窗口（秒）"
+    },
+    "flood_threshold": {
+      "type": "integer",
+      "default": 5,
+      "minimum": 3,
+      "description": "刷屏检测阈值：在时间窗口内发送消息总数达到此次数触发冷却"
+    },
+    "flood_window_seconds": {
+      "type": "integer",
+      "default": 10,
+      "minimum": 5,
+      "description": "刷屏检测时间窗口（秒）"
+    },
+    "cooldown_seconds": {
+      "type": "integer",
+      "default": 30,
+      "minimum": 10,
+      "description": "触发刷屏检测后的冷却时间（秒），冷却期间消息被静默丢弃"
+    },
+    "warning_message": {
+      "type": "string",
+      "default": "检测到刷屏行为，你的消息将被暂时忽略。",
+      "description": "触发刷屏检测时发送的警告消息，留空则不发送"
+    }
+  }
+}
