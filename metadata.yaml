@@ -1,7 +1,7 @@
 name: astrbot_plugin_anti_spam
 display_name: 反垃圾/反刷屏
 desc: 检测并拦截重复消息和刷屏行为，保护机器人不被滥用。
-version: 1.0.0
+version: 1.0.1
 author: je1ght
 repo: https://github.com/Je1ghtxyuN/astrbot_plugin_anti_spam
 astrbot_version: ">=4.0.0"

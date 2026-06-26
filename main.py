@@ -30,7 +30,7 @@ class AntiSpamPlugin(Star):
         self._cleanup_interval = 200
 
         logger.info(
-            f"[AntiSpam] v1.0.0 已加载 | "
+            f"[AntiSpam] v1.0.1 已加载 | "
             f"重复: {self.duplicate_threshold}次/{self.duplicate_window}s | "
             f"刷屏: {self.flood_threshold}条/{self.flood_window}s | "
             f"冷却: {self.cooldown_seconds}s"
@@ -40,6 +40,10 @@ class AntiSpamPlugin(Star):
     async def anti_spam_handler(self, event: AstrMessageEvent):
         """反刷屏主处理器：检测重复消息和刷屏行为，触发冷却时阻断事件传播以避免 token 消耗。"""
         if not self.enabled:
+            return
+
+        # 只处理真实聊天消息，跳过撤回通知、系统事件等非聊天事件
+        if not self._is_chat_message(event):
             return
 
         user_id = str(event.get_sender_id())
@@ -102,6 +106,26 @@ class AntiSpamPlugin(Star):
         if event.is_private_chat():
             event.set_result(event.plain_result("检测到刷屏行为，你的消息将被暂时忽略。"))
         event.stop_event()
+
+    @staticmethod
+    def _is_chat_message(event: AstrMessageEvent) -> bool:
+        """判断是否为真实聊天消息，排除撤回通知、系统事件等。"""
+        message = event.get_messages()
+        if not message:
+            return False
+
+        # 检查是否有实际内容的消息段（文本、图片、表情等）
+        from astrbot.api.message_components import Plain, Image, Face, At, Reply, Forward
+        content_types = (Plain, Image, Face, At, Reply, Forward)
+
+        for seg in message:
+            if isinstance(seg, content_types):
+                # Plain 段需要有实际文本内容
+                if isinstance(seg, Plain) and not seg.text.strip():
+                    continue
+                return True
+
+        return False
 
     def _cleanup_expired(self, now: float):
         expired = [uid for uid, end in self._cooldowns.items() if now >= end]
